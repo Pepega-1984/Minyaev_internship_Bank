@@ -1,0 +1,50 @@
+// Source code is decompiled from a .class file using FernFlower decompiler.
+package com.example.cardmanagement.service;
+
+import com.example.cardmanagement.model.BankCard;
+import com.example.cardmanagement.repository.BankCardRepository;
+import java.math.BigDecimal;
+import java.util.List;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+@Service
+public class CardService {
+   private final BankCardRepository cardRepository;
+
+   public CardService(BankCardRepository cardRepository) {
+      this.cardRepository = cardRepository;
+   }
+
+   @Transactional
+   public BankCard createCard(BankCard card) {
+      return (BankCard)this.cardRepository.save(card);
+   }
+
+   public List<BankCard> getAllCards() {
+      return this.cardRepository.findAll();
+   }
+
+   @Transactional
+   public void blockCard(Long cardId) {
+      BankCard card = (BankCard)this.cardRepository.findById(cardId).orElseThrow(() -> {
+         return new RuntimeException("Карта не найдена");
+      });
+      card.setBlocked(true);
+      this.cardRepository.save(card);
+   }
+
+   @Transactional
+   public void transferMoney(Long fromCardId, Long toCardId, BigDecimal amount) {
+      BankCard fromCard = (BankCard)this.cardRepository.findById(fromCardId).orElseThrow(() -> {
+         return new RuntimeException("Исходная карта не найдена");
+      });
+      BankCard toCard = (BankCard)this.cardRepository.findById(toCardId).orElseThrow(() -> {
+         return new RuntimeException("Искомая катра не найдена");
+      });
+      fromCard.setBalance(fromCard.getBalance().subtract(amount));
+      toCard.setBalance(toCard.getBalance().add(amount));
+      this.cardRepository.save(fromCard);
+      this.cardRepository.save(toCard);
+   }
+}
