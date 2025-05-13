@@ -1,0 +1,66 @@
+// Source code is decompiled from a .class file using FernFlower decompiler.
+package com.example.cardmanagement.filter;
+
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.io.Decoders;
+import io.jsonwebtoken.security.Keys;
+import java.security.Key;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Function;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Service;
+
+@Service
+public class jwtService {
+   @Value("${jwt.secret-key}")
+   private String secretKey;
+   @Value("${jwt.expiration}")
+   private long jwtExpiration;
+
+   public jwtService() {
+   }
+
+   public String generateToken(UserDetails userDetails) {
+      return this.generateToken(new HashMap(), userDetails);
+   }
+
+   public String generateToken(Map<String, Object> extraClaims, UserDetails userDetails) {
+      return Jwts.builder().setClaims(extraClaims).setSubject(userDetails.getUsername()).setIssuedAt(new Date(System.currentTimeMillis())).setExpiration(new Date(System.currentTimeMillis() + this.jwtExpiration)).signWith(this.getSignInKey(), SignatureAlgorithm.HS256).compact();
+   }
+
+   public boolean isTokenValid(String token, UserDetails userDetails) {
+      String username = this.extractUsername(token);
+      return username.equals(userDetails.getUsername()) && !this.isTokenExpired(token);
+   }
+
+   private boolean isTokenExpired(String token) {
+      return this.extractExpiration(token).before(new Date());
+   }
+
+   private Date extractExpiration(String token) {
+      return (Date)this.extractClaim(token, Claims::getExpiration);
+   }
+
+   public String extractUsername(String token) {
+      return (String)this.extractClaim(token, Claims::getSubject);
+   }
+
+   private <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
+      Claims claims = this.extractAllClaims(token);
+      return claimsResolver.apply(claims);
+   }
+
+   private Claims extractAllClaims(String token) {
+      return (Claims)Jwts.parserBuilder().setSigningKey(this.getSignInKey()).build().parseClaimsJws(token).getBody();
+   }
+
+   private Key getSignInKey() {
+      byte[] keyBytes = (byte[])Decoders.BASE64.decode(this.secretKey);
+      return Keys.hmacShaKeyFor(keyBytes);
+   }
+}
