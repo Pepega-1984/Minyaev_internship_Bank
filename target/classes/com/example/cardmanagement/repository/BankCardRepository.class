@@ -1,0 +1,12 @@
+// Source code is decompiled from a .class file using FernFlower decompiler.
+package com.example.cardmanagement.repository;
+
+import com.example.cardmanagement.model.BankCard;
+import com.example.cardmanagement.model.User;
+import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties;
+import org.springframework.data.domain.Page;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface BankCardRepository extends JpaRepository<BankCard, Long> {
+   Page<BankCard> findByUser(User user, SpringDataWebProperties.Pageable pageable);
+}
