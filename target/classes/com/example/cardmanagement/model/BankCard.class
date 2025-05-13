@@ -1,0 +1,282 @@
+// Source code is decompiled from a .class file using FernFlower decompiler.
+package com.example.cardmanagement.model;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import lombok.Generated;
+
+@Entity
+@Table(
+   name = "bank_cards"
+)
+public class BankCard {
+   @Id
+   @GeneratedValue(
+      strategy = GenerationType.IDENTITY
+   )
+   private Long id;
+   @Column(
+      name = "card_number_encrypted",
+      nullable = false
+   )
+   private String cardNumberEncrypted;
+   @Column(
+      name = "card_number_masked",
+      nullable = false
+   )
+   private String cardNumberMasked;
+   @Column(
+      nullable = false
+   )
+   private String cardHolder;
+   @Column(
+      nullable = false
+   )
+   private LocalDate expiryDate;
+   @Column(
+      nullable = false,
+      columnDefinition = "DECIMAL(15,2) DEFAULT 0.00"
+   )
+   private BigDecimal balance;
+   @Column(
+      name = "is_blocked"
+   )
+   private boolean isBlocked;
+   @Enumerated(EnumType.STRING)
+   private CardStatus status;
+
+   @Generated
+   public Long getId() {
+      return this.id;
+   }
+
+   @Generated
+   public String getCardNumberEncrypted() {
+      return this.cardNumberEncrypted;
+   }
+
+   @Generated
+   public String getCardNumberMasked() {
+      return this.cardNumberMasked;
+   }
+
+   @Generated
+   public String getCardHolder() {
+      return this.cardHolder;
+   }
+
+   @Generated
+   public LocalDate getExpiryDate() {
+      return this.expiryDate;
+   }
+
+   @Generated
+   public BigDecimal getBalance() {
+      return this.balance;
+   }
+
+   @Generated
+   public boolean isBlocked() {
+      return this.isBlocked;
+   }
+
+   @Generated
+   public CardStatus getStatus() {
+      return this.status;
+   }
+
+   @Generated
+   public void setId(final Long id) {
+      this.id = id;
+   }
+
+   @Generated
+   public void setCardNumberEncrypted(final String cardNumberEncrypted) {
+      this.cardNumberEncrypted = cardNumberEncrypted;
+   }
+
+   @Generated
+   public void setCardNumberMasked(final String cardNumberMasked) {
+      this.cardNumberMasked = cardNumberMasked;
+   }
+
+   @Generated
+   public void setCardHolder(final String cardHolder) {
+      this.cardHolder = cardHolder;
+   }
+
+   @Generated
+   public void setExpiryDate(final LocalDate expiryDate) {
+      this.expiryDate = expiryDate;
+   }
+
+   @Generated
+   public void setBalance(final BigDecimal balance) {
+      this.balance = balance;
+   }
+
+   @Generated
+   public void setBlocked(final boolean isBlocked) {
+      this.isBlocked = isBlocked;
+   }
+
+   @Generated
+   public void setStatus(final CardStatus status) {
+      this.status = status;
+   }
+
+   @Generated
+   public boolean equals(final Object o) {
+      if (o == this) {
+         return true;
+      } else if (!(o instanceof BankCard)) {
+         return false;
+      } else {
+         BankCard other = (BankCard)o;
+         if (!other.canEqual(this)) {
+            return false;
+         } else if (this.isBlocked() != other.isBlocked()) {
+            return false;
+         } else {
+            label97: {
+               Object this$id = this.getId();
+               Object other$id = other.getId();
+               if (this$id == null) {
+                  if (other$id == null) {
+                     break label97;
+                  }
+               } else if (this$id.equals(other$id)) {
+                  break label97;
+               }
+
+               return false;
+            }
+
+            Object this$cardNumberEncrypted = this.getCardNumberEncrypted();
+            Object other$cardNumberEncrypted = other.getCardNumberEncrypted();
+            if (this$cardNumberEncrypted == null) {
+               if (other$cardNumberEncrypted != null) {
+                  return false;
+               }
+            } else if (!this$cardNumberEncrypted.equals(other$cardNumberEncrypted)) {
+               return false;
+            }
+
+            Object this$cardNumberMasked = this.getCardNumberMasked();
+            Object other$cardNumberMasked = other.getCardNumberMasked();
+            if (this$cardNumberMasked == null) {
+               if (other$cardNumberMasked != null) {
+                  return false;
+               }
+            } else if (!this$cardNumberMasked.equals(other$cardNumberMasked)) {
+               return false;
+            }
+
+            label76: {
+               Object this$cardHolder = this.getCardHolder();
+               Object other$cardHolder = other.getCardHolder();
+               if (this$cardHolder == null) {
+                  if (other$cardHolder == null) {
+                     break label76;
+                  }
+               } else if (this$cardHolder.equals(other$cardHolder)) {
+                  break label76;
+               }
+
+               return false;
+            }
+
+            Object this$expiryDate = this.getExpiryDate();
+            Object other$expiryDate = other.getExpiryDate();
+            if (this$expiryDate == null) {
+               if (other$expiryDate != null) {
+                  return false;
+               }
+            } else if (!this$expiryDate.equals(other$expiryDate)) {
+               return false;
+            }
+
+            Object this$balance = this.getBalance();
+            Object other$balance = other.getBalance();
+            if (this$balance == null) {
+               if (other$balance != null) {
+                  return false;
+               }
+            } else if (!this$balance.equals(other$balance)) {
+               return false;
+            }
+
+            Object this$status = this.getStatus();
+            Object other$status = other.getStatus();
+            if (this$status == null) {
+               if (other$status != null) {
+                  return false;
+               }
+            } else if (!this$status.equals(other$status)) {
+               return false;
+            }
+
+            return true;
+         }
+      }
+   }
+
+   @Generated
+   protected boolean canEqual(final Object other) {
+      return other instanceof BankCard;
+   }
+
+   @Generated
+   public int hashCode() {
+      int PRIME = true;
+      int result = 1;
+      result = result * 59 + (this.isBlocked() ? 79 : 97);
+      Object $id = this.getId();
+      result = result * 59 + ($id == null ? 43 : $id.hashCode());
+      Object $cardNumberEncrypted = this.getCardNumberEncrypted();
+      result = result * 59 + ($cardNumberEncrypted == null ? 43 : $cardNumberEncrypted.hashCode());
+      Object $cardNumberMasked = this.getCardNumberMasked();
+      result = result * 59 + ($cardNumberMasked == null ? 43 : $cardNumberMasked.hashCode());
+      Object $cardHolder = this.getCardHolder();
+      result = result * 59 + ($cardHolder == null ? 43 : $cardHolder.hashCode());
+      Object $expiryDate = this.getExpiryDate();
+      result = result * 59 + ($expiryDate == null ? 43 : $expiryDate.hashCode());
+      Object $balance = this.getBalance();
+      result = result * 59 + ($balance == null ? 43 : $balance.hashCode());
+      Object $status = this.getStatus();
+      result = result * 59 + ($status == null ? 43 : $status.hashCode());
+      return result;
+   }
+
+   @Generated
+   public String toString() {
+      String var10000 = String.valueOf(this.getId());
+      return "BankCard(id=" + var10000 + ", cardNumberEncrypted=" + this.getCardNumberEncrypted() + ", cardNumberMasked=" + this.getCardNumberMasked() + ", cardHolder=" + this.getCardHolder() + ", expiryDate=" + String.valueOf(this.getExpiryDate()) + ", balance=" + String.valueOf(this.getBalance()) + ", isBlocked=" + this.isBlocked() + ", status=" + String.valueOf(this.getStatus()) + ")";
+   }
+
+   @Generated
+   public BankCard() {
+      this.balance = BigDecimal.ZERO;
+   }
+
+   @Generated
+   public BankCard(final Long id, final String cardNumberEncrypted, final String cardNumberMasked, final String cardHolder, final LocalDate expiryDate, final BigDecimal balance, final boolean isBlocked, final CardStatus status) {
+      this.balance = BigDecimal.ZERO;
+      this.id = id;
+      this.cardNumberEncrypted = cardNumberEncrypted;
+      this.cardNumberMasked = cardNumberMasked;
+      this.cardHolder = cardHolder;
+      this.expiryDate = expiryDate;
+      this.balance = balance;
+      this.isBlocked = isBlocked;
+      this.status = status;
+   }
+}
