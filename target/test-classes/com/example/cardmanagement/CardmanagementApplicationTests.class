@@ -1,0 +1,15 @@
+// Source code is decompiled from a .class file using FernFlower decompiler.
+package com.example.cardmanagement;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+class CardmanagementApplicationTests {
+   CardmanagementApplicationTests() {
+   }
+
+   @Test
+   void contextLoads() {
+   }
+}
